@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetShop — Cadastro de pet</title>
+  <style>
+    :root {
+      --primary: #2f6f62;
+      --primary-dark: #22564c;
+      --secondary: #f2b45b;
+      --background: #f5f7f6;
+      --surface: #ffffff;
+      --text: #20312e;
+      --muted: #6c7c79;
+      --border: #dce6e2;
+      --success: #247a4c;
+      --success-bg: #eaf7ee;
+      --danger: #b42318;
+      --danger-bg: #fff0ee;
+      --info-bg: #eef6f5;
+      --shadow: 0 12px 28px rgba(32, 49, 46, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button, input, select, textarea { font: inherit; }
+
+    .app-shell { min-height: 100vh; }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 18px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.16);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .brand strong { display: block; font-size: 1.05rem; }
+    .brand small { display: block; opacity: 0.78; }
+
+    .profile {
+      text-align: right;
+      font-size: 0.9rem;
+    }
+    .profile span { display: block; opacity: 0.78; }
+
+    main {
+      width: min(1180px, 90vw);
+      margin: 34px auto 64px;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    .breadcrumb strong { color: var(--primary); }
+
+    .page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 6px; font-size: clamp(1.7rem, 3vw, 2.35rem); }
+    .subtitle { margin: 0; color: var(--muted); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #e5f1ee;
+      color: var(--primary-dark);
+      padding: 7px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .card + .card { margin-top: 18px; }
+    .card h2 { font-size: 1.18rem; margin-bottom: 6px; }
+    .card-intro { color: var(--muted); margin-bottom: 22px; font-size: 0.92rem; }
+
+    form { display: grid; gap: 18px; }
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-weight: 700; font-size: 0.91rem; }
+    .required { color: var(--danger); }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fbfdfc;
+      color: var(--text);
+      border-radius: 10px;
+      min-height: 44px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(47,111,98,.15);
+    }
+    .help { color: var(--muted); font-size: 0.8rem; }
+
+    .actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 17px;
+      cursor: pointer;
+      font-weight: 750;
+    }
+    .btn-primary { color: #fff; background: var(--primary); }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { color: var(--primary-dark); background: #e9f0ee; }
+
+    .notice {
+      border-radius: 12px;
+      padding: 13px 14px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+    }
+    .notice strong { display: block; margin-bottom: 2px; }
+    .notice.info { background: var(--info-bg); color: var(--primary-dark); border-color: #c9e2dc; }
+    .notice.success { background: var(--success-bg); color: var(--success); border-color: #bee4c9; }
+    .notice.error { background: var(--danger-bg); color: var(--danger); border-color: #f3c7c2; }
+
+    .side-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .side-list li { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); font-size: 0.9rem; }
+    .step {
+      flex: 0 0 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--primary-dark);
+      background: #e5f1ee;
+      font-weight: 800;
+      font-size: 0.78rem;
+    }
+
+    .state-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .state-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 15px;
+      background: #fcfefd;
+    }
+    .state-card h3 { font-size: 0.96rem; margin-bottom: 9px; }
+    .state-card p { font-size: 0.84rem; color: var(--muted); margin-bottom: 0; }
+    .state-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .mini-field {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 9px;
+      background: #fff;
+      font-size: .82rem;
+      margin-bottom: 8px;
+    }
+    .mini-field.valid { border-color: #72bf8d; }
+    .mini-field.invalid { border-color: #e58b83; background: #fff9f8; }
+    .spinner {
+      width: 23px;
+      height: 23px;
+      margin: 7px 0 12px;
+      border: 3px solid #c9e2dc;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+    }
+
+    footer {
+      width: min(1180px, 90vw);
+      margin: 0 auto 34px;
+      color: var(--muted);
+      font-size: .82rem;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      header { align-items: flex-start; }
+      .profile { display: none; }
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      main { width: min(94vw, 1180px); margin-top: 22px; }
+      header { padding: 15px 3vw; }
+      .page-heading { display: block; }
+      .page-heading .tag { margin-top: 14px; }
+      .card { padding: 18px; border-radius: 15px; }
+      .field-grid, .state-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .actions { flex-direction: column-reverse; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">P</div>
+        <div>
+          <strong>PetCare PetShop</strong>
+          <small>Atendimento e cadastro de animais</small>
+        </div>
+      </div>
+      <div class="profile">
+        <strong>Atendente</strong>
+        <span>Unidade Centro</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="breadcrumb">Clientes / Maria Oliveira / <strong>Novo pet</strong></div>
+
+      <div class="page-heading">
+        <div>
+          <h1>Cadastrar animal de estimação</h1>
+          <p class="subtitle">Registre os dados básicos para facilitar os próximos atendimentos.</p>
+        </div>
+        <span class="tag">RF-001 · Cadastro de pet</span>
+      </div>
+
+      <div class="layout">
+        <section class="card" aria-labelledby="form-title">
+          <h2 id="form-title">Dados do pet</h2>
+          <p class="card-intro">Os campos marcados com <span class="required">*</span> são obrigatórios.</p>
+
+          <div class="notice info" role="note">
+            <strong>Tutor selecionado</strong>
+            Maria Oliveira · (61) 99999-0000
+          </div>
+
+          <form action="#" method="post">
+            <div class="field-grid">
+              <div class="field">
+                <label for="pet-name">Nome do animal <span class="required">*</span></label>
+                <input id="pet-name" name="pet-name" type="text" placeholder="Ex.: Mel" required>
+              </div>
+
+              <div class="field">
+                <label for="species">Espécie <span class="required">*</span></label>
+                <select id="species" name="species" required>
+                  <option value="">Selecione</option>
+                  <option value="cao">Cão</option>
+                  <option value="gato">Gato</option>
+                  <option value="ave">Ave</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="breed">Raça</label>
+                <input id="breed" name="breed" type="text" placeholder="Ex.: Golden Retriever">
+              </div>
+
+              <div class="field">
+                <label for="size">Porte</label>
+                <select id="size" name="size">
+                  <option value="">Selecione</option>
+                  <option value="pequeno">Pequeno</option>
+                  <option value="medio">Médio</option>
+                  <option value="grande">Grande</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="age">Idade aproximada</label>
+                <input id="age" name="age" type="number" min="0" placeholder="Ex.: 3">
+                <span class="help">Informe a idade em anos completos.</span>
+              </div>
+
+              <div class="field">
+                <label for="weight">Peso aproximado</label>
+                <input id="weight" name="weight" type="text" placeholder="Ex.: 12 kg">
+              </div>
+
+              <div class="field full">
+                <label for="notes">Observações</label>
+                <textarea id="notes" name="notes" placeholder="Alergias, comportamento ou cuidados especiais"></textarea>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn-secondary" type="reset">Cancelar</button>
+              <button class="btn-primary" type="submit">Salvar cadastro</button>
+            </div>
+          </form>
+        </section>
+
+        <aside>
+          <section class="card" aria-labelledby="flow-title">
+            <h2 id="flow-title">Fluxo do atendimento</h2>
+            <p class="card-intro">Etapas representadas neste protótipo.</p>
+            <ol class="side-list">
+              <li><span class="step">1</span><span>Selecionar o cliente ou tutor.</span></li>
+              <li><span class="step">2</span><span>Adicionar os dados básicos do pet.</span></li>
+              <li><span class="step">3</span><span>Validar campos obrigatórios.</span></li>
+              <li><span class="step">4</span><span>Salvar e exibir confirmação.</span></li>
+            </ol>
+          </section>
+
+          <section class="card" aria-labelledby="states-title">
+            <h2 id="states-title">Estados da interface</h2>
+            <p class="card-intro">Exemplos visuais para avaliação da entrega.</p>
+            <div class="state-grid">
+              <article class="state-card">
+                <span class="state-label">Estado 1</span>
+                <h3>Formulário vazio</h3>
+                <div class="mini-field">Nome do animal</div>
+                <div class="mini-field">Selecione a espécie</div>
+                <p>Estado inicial para um novo cadastro.</p>
+              </article>
+
+              <article class="state-card">
+                <span class="state-label">Estado 2</span>
+                <h3>Preenchido</h3>
+                <div class="mini-field valid">Mel · Cão</div>
+                <div class="mini-field valid">Golden Retriever</div>
+                <p>Campos válidos destacados visualmente.</p>
+              </article>
+
+              <article class="state-card">
+                <span class="state-label">Estado 3</span>
+                <h3>Carregando</h3>
+                <div class="spinner" aria-label="Carregando"></div>
+                <p>Salvando os dados do pet...</p>
+              </article>
+
+              <article class="state-card">
+                <span class="state-label">Estado 4</span>
+                <h3>Erro</h3>
+                <div class="mini-field invalid">Nome do animal obrigatório</div>
+                <p>O sistema informa como corrigir o cadastro.</p>
+              </article>
+            </div>
+          </section>
+
+          <div class="notice success" role="status">
+            <strong>Exemplo de sucesso</strong>
+            Pet cadastrado e vinculado ao perfil de Maria Oliveira.
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      Protótipo acadêmico do projeto PetShop · RF-001 · Laboratório de Inovação 2026
+    </footer>
+  </div>
+</body>
+</html>
