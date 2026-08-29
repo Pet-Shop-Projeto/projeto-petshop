@@ -7,7 +7,7 @@
 **Data de Entrega:** [Data]  
 **Grupo:** Grupo 1 - Petshop
 **Integrantes:** isabela61850856@edu.df.senac.br; mateus62355366@edu.df.senac.br; joao60732706@edu.df.senac.br.
-[isabela rezende, João Paulo Arruda, Mateus Alcantra]  
+[isabela rezende, João Paulo Arruda, Mateus Alcantara]  
 
 **ID:** RF-001  
 **Título:** Criar novo registro de cliente no sistema e seu(s) respectivos PETs  
