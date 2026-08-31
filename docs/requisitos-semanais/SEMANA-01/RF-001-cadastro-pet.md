@@ -6,8 +6,7 @@
 **Valor Total da Entrega:** 100%  
 **Data de Entrega:** [Data]  
 **Grupo:** Grupo 1 - Petshop
-**Integrantes:** isabela61850856@edu.df.senac.br; mateus62355366@edu.df.senac.br; joao60732706@edu.df.senac.br.
-[isabela rezende, João Paulo Arruda, Mateus Alcantara]  
+**Integrantes:** isabela61850856@edu.df.senac.br[Isabela Rezende]; mateus62355366@edu.df.senac.br[Mateus Alcântara]; joao60732706@edu.df.senac.br[João Paulo].
 
 **ID:** RF-001  
 **Título:** Criar novo registro de cliente no sistema e seu(s) respectivos PETs  
@@ -32,14 +31,14 @@ O sistema precisa gerenciar informações de clientes e PETs para:
 - Facilitar check-in/check-out
 
 **Contexto do Negócio:**  
-Hotel precisa registrar dados de todos os hóspedes que chegam, coletando informações essenciais para contato e identificação.
+PetShop precisa registrar dados de todos os clientes que logam, coletando informações essenciais para contato e identificação do tutor e seu PETs.
 
 ---
 
 ## Atores do Sistema
 
-### 1. RECEPCIONISTA (Ator Principal)
-- **Papel:** Cadastrar novo hóspede
+### 1. Usuário (Ator Principal)
+- **Papel:** se cadastrar no site/app
 - **Responsabilidade:** Inserir dados corretos, validar informações
 - **Permissões:** 
   - ✅ CREATE (criar novo hóspede)
@@ -62,13 +61,13 @@ Hotel precisa registrar dados de todos os hóspedes que chegam, coletando inform
 ## UC-001: Realizar Cadastro de cliente/PETs
 
 ### Pré-Condições
-- ✅ Recepcionista autenticado no sistema
+- ✅ Usuário autenticado no sistema
 - ✅ Dados de conexão disponíveis
 - ✅ Banco de dados funcionando
-- ✅ O cliente ou tutor deve existir no cadastro.
+- ✅ O usuário ou tutor deve existir no cadastro.
 
 ### Pós-Condições (Sucesso)
-- ✅ Hóspede registrado com ID único
+- ✅ Usuário registrado com ID único
 - ✅ Confirmação enviada por email
 - ✅ Histórico de cadastro registrado
 - ✅O cadastro fica disponível para consulta e agendamento de serviços.
@@ -218,7 +217,7 @@ Hotel precisa registrar dados de todos os hóspedes que chegam, coletando inform
        │ HTTPS
        ▼
 ┌──────────────────┐
-│ API REST Backend │ (Express.js)
+│ API Rest Backend │ (Express.js)
 │ POST /clientes   │
 └──────┬───────────┘
        │ Validações
@@ -244,31 +243,6 @@ Hotel precisa registrar dados de todos os hóspedes que chegam, coletando inform
 
 **Consequências:** ✅ Seguro, ✅ Escalável, ⚠️ Requer DevOps
 
-### ADR-002: Bcrypt para Senhas
-
-**Status:** ACEITO
-
-**Contexto:** Senhas devem ser armazenadas de forma segura e irreversível.
-
-**Decisão:** Usar bcrypt com 12 rounds de salt.
-
-**Alternativas:** Scrypt, PBKDF2
-
-**Consequências:** ✅ OWASP recomendado, ✅ Adaptativo
-
-### ADR-003: REST API com Express.js
-
-**Status:** ACEITO
-
-**Contexto:** API escalável e simples para frontend.
-
-**Decisão:** Usar Express.js 4.18+ com Node.js 18 LTS.
-
-**Alternativas:** Django, Rails
-
-**Consequências:** ✅ Rápido, ✅ JavaScript full-stack
-
----
 
 ## Tecnologias Escolhidas
 
