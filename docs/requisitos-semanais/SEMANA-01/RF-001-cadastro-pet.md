@@ -120,90 +120,175 @@ PetShop precisa registrar dados de todos os clientes que logam, coletando inform
 
 ### Mockup/Descrição das Telas
 
-**Tela 1: Formulário Vazio (Estado Inicial)**
+Tela 1: Novo Cadastro — Estado Inicial
 ```
-┌─────────────────────────────────────┐
-│  Cadastro de cliente                │
-├─────────────────────────────────────┤
-│                                     │
-│ Nome: [________________]             │
-│                                     │
-│ Email: [________________]            │
-│                                     │
-│ CPF: [________________]              │
-│                                     │
-│ [ SALVAR ]  [ CANCELAR ]            │
-│                                     │
-└─────────────────────────────────────┘
-```
-
-**Tela 2: Formulário do PET**
-```
-┌─────────────────────────────────────┐
-│  Cadastro de PETs                   │
-├─────────────────────────────────────┤
-│                                     │
-│ Nome: [________________]             │
-│                                     │
-│ raça: [________________]            │
-│                                     │
-│ idade: [________________]
-
- peso: [________________]               │
-│                                     │
-│ [ SALVAR ]  [ CANCELAR ]            │
-│                                     │
-└─────────────────────────────────────┘
-```
-**Tela 3: Formulário Preenchido (Validação Visual)**
-```
-┌─────────────────────────────────────┐
-│  Cadastro de cliente                │
-├─────────────────────────────────────┤
-│                                     │
-│ Nome: [João Silva            ] ✅   │
-│                                     │
-│ Email: [joao@email.com       ] ✅   │
-│                                     │
-│ CPF: [12345678901            ] ✅   │
-│                                     │
-│ [ SALVAR ]  [ CANCELAR ]            │
-│                                     │
-└─────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────┐
+│ ✦ PataSegura                    Clientes e pets / Novo cadastro │
+├───────────────┬────────────────────────────────────────────┤
+│               │                                            │
+│ ▦ Visão geral │  CADASTRO DE HÓSPEDE                      │
+│ ♙ Clientes    │  Novo cliente e pet                       │
+│   e pets  ←   │  Preencha os dados abaixo para criar um   │
+│ ▣ Hospedagens │  novo registro no sistema.                 │
+│ ◷ Agenda      │                                            │
+│ ▤ Relatórios  │  ① Dados do cliente ─ ② Dados do pet ─ ③ │
+│               │                                            │
+│               │  ┌──────────────────────────────────────┐  │
+│ Ana Souza     │  │ ♙  Dados do cliente                  │  │
+│ Recepcionista │  │    Informações básicas do tutor       │  │
+│               │  │                                       │  │
+│               │  │ Nome completo *                       │  │
+│               │  │ [_______________________________]     │  │
+│               │  │                                       │  │
+│               │  │ E-mail *          CPF *               │  │
+│               │  │ [_______________] [________________]  │  │
+│               │  │                                       │  │
+│               │  │ Telefone *       Data de nascimento * │  │
+│               │  │ [_______________] [________________]  │  │
+│               │  │                                       │  │
+│               │  │ ──────────────────────────────────── │  │
+│               │  │                                       │  │
+│               │  │ ♥  Dados do pet                      │  │
+│               │  │                                       │  │
+│               │  │ PET 1                                 │  │
+│               │  │ Nome *        Raça *                  │  │
+│               │  │ [__________] [________________]       │  │
+│               │  │                                       │  │
+│               │  │ Idade *       Peso (kg) *             │  │
+│               │  │ [__________] [________________]       │  │
+│               │  │                                       │  │
+│               │  │ [ ＋ Adicionar outro pet ]            │  │
+│               │  │                                       │  │
+│               │  │ 🔒 Seus dados estão protegidos.       │  │
+│               │  └──────────────────────────────────────┘  │
+│               │                                            │
+│               │ Campos obrigatórios *     [CANCELAR]       │
+│               │                            [SALVAR CADASTRO]│
+└───────────────┴────────────────────────────────────────────┘
 ```
 
-**Tela 3: Carregando (Processando)**
+Tela 2: Formulário Preenchido — Validação Visual
 ```
-┌─────────────────────────────────────┐
-│  Cadastro de cliente                │
-├─────────────────────────────────────┤
-│                                     │
-│  Salvando dados...                  │
-│  ⟳ (spinner de carregamento)        │
-│                                     │
-│  [ CANCELAR ]                       │
-│                                     │
-└─────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│ Novo cliente e pet                                     │
+├────────────────────────────────────────────────────────┤
+│ ① Dados do cliente ─ ② Dados do pet ─ ③ Revisão       │
+│                                                        │
+│ ┌────────────────────────────────────────────────────┐ │
+│ │ ♙  Dados do cliente                                │ │
+│ │                                                    │ │
+│ │ Nome completo *                                    │ │
+│ │ [João da Silva____________________________]  ✓     │ │
+│ │                                                    │ │
+│ │ E-mail *                     CPF *                 │ │
+│ │ [joao@email.com____________] ✓ [123.456.789-09] ✓ │ │
+│ │                                                    │ │
+│ │ Telefone *                  Data de nascimento *  │ │
+│ │ [(61) 99999-9999__________] ✓ [15/05/1995_______] ✓│ │
+│ │                                                    │ │
+│ │ ♥  Dados do pet                                    │ │
+│ │                                                    │ │
+│ │ PET 1                                              │ │
+│ │ Nome *            Raça *                           │ │
+│ │ [Thor___________]  [Golden Retriever____________]  │ │
+│ │                                                    │ │
+│ │ Idade *            Peso (kg) *                    │ │
+│ │ [3______________]  [12,5________________________] │ │
+│ │                                                    │ │
+│ │ [ ＋ Adicionar outro pet ]                         │ │
+│ └────────────────────────────────────────────────────┘ │
+│                                                        │
+│                         [CANCELAR] [SALVAR CADASTRO]   │
+└────────────────────────────────────────────────────────┘
+```
+Tela 3: Adicionando Outro Pet
+┌───────────────────────────────────────────────────────┐
+│ Dados do pet                                          │
+├───────────────────────────────────────────────────────┤
+│                                                       │
+│ PET 1                                      [ × ]       │
+│ Nome *          Raça *                                │
+│ [Thor________]  [Golden Retriever____________]        │
+│                                                       │
+│ Idade *          Peso (kg) *                          │
+│ [3___________]  [12,5________________________]       │
+│                                                       │
+│ PET 2                                      [ × ]       │
+│ Nome *          Raça *                                │
+│ [Luna________]  [Poodle_____________________]         │
+│                                                       │
+│ Idade *          Peso (kg) *                          │
+│ [5___________]  [8,2_________________________]       │
+│                                                       │
+│ [ ＋ Adicionar outro pet ]                            │
+│                                                       │
+│ 🔒 Seus dados estão protegidos.                       │
+│                                                       │
+│ [CANCELAR]                         [SALVAR CADASTRO]   │
+└───────────────────────────────────────────────────────┘
 ```
 
-**Tela 4: Erro de Validação**
+Tela 3: Adicionando Outro Pet
 ```
-┌─────────────────────────────────────┐
-│  Cadastro de cliente                │
-├─────────────────────────────────────┤
-│                                     │
-│ ⚠️ Email já cadastrado no sistema   │
-│                                     │
-│ Nome: [João Silva            ] ✅   │
-│                                     │
-│ Email: [joao@email.com       ] ❌   │
-│ Use outro email               │
-│                                     │
-│ CPF: [12345678901            ] ✅   │
-│                                     │
-│ [ SALVAR ]  [ CANCELAR ]            │
-│                                     │
-└─────────────────────────────────────┘
+┌───────────────────────────────────────────────────────┐
+│ Dados do pet                                          │
+├───────────────────────────────────────────────────────┤
+│                                                       │
+│ PET 1                                      [ × ]       │
+│ Nome *          Raça *                                │
+│ [Thor________]  [Golden Retriever____________]        │
+│                                                       │
+│ Idade *          Peso (kg) *                          │
+│ [3___________]  [12,5________________________]       │
+│                                                       │
+│ PET 2                                      [ × ]       │
+│ Nome *          Raça *                                │
+│ [Luna________]  [Poodle_____________________]         │
+│                                                       │
+│ Idade *          Peso (kg) *                          │
+│ [5___________]  [8,2_________________________]       │
+│                                                       │
+│ [ ＋ Adicionar outro pet ]                            │
+│                                                       │
+│ 🔒 Seus dados estão protegidos.                       │
+│                                                       │
+│ [CANCELAR]                         [SALVAR CADASTRO]   │
+└───────────────────────────────────────────────────────┘
+
+Tela 4: Erro de Validação
+```
+┌───────────────────────────────────────────────────────┐
+│ Novo cliente e pet                                    │
+├───────────────────────────────────────────────────────┤
+│ ① Dados do cliente                                    │
+│                                                       │
+│ ┌───────────────────────────────────────────────────┐ │
+│ │ ♙  Dados do cliente                               │ │
+│ │                                                   │ │
+│ │ Nome completo *                                   │ │
+│ │ [João da Silva____________________________]  ✓    │ │
+│ │                                                   │ │
+│ │ E-mail *                                          │ │
+│ │ [joao@email_______________________________]  ❌   │ │
+│ │ Informe um e-mail válido.                         │ │
+│ │                                                   │ │
+│ │ CPF *                                             │ │
+│ │ [000.000.000-00___________________________]  ❌   │ │
+│ │ Confira o CPF informado.                          │ │
+│ │                                                   │ │
+│ │ Telefone *                                        │ │
+│ │ [(61) 99999-9999_________________________]  ✓    │ │
+│ │                                                   │ │
+│ │ Data de nascimento *                              │ │
+│ │ [31/12/2030______________________________]  ❌    │ │
+│ │ A data não pode ser futura.                       │ │
+│ └───────────────────────────────────────────────────┘ │
+│                                                       │
+│ ⚠ Revise os campos                                   │
+│ Há informações pendentes ou inválidas no formulário. │
+│                                                       │
+│ [CANCELAR]                         [SALVAR CADASTRO]   │
+└───────────────────────────────────────────────────────┘
 
 ## Arquitetura da Solução
 
